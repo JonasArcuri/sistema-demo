@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "user": {
+      "title": "Usuário",
+      "description": "Perfil do técnico ou administrador do sistema.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "ID único do Firebase Auth" },
+        "name": { "type": "string", "description": "Nome completo" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "technician"], "description": "Nível de acesso" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "client": {
+      "title": "Cliente",
+      "description": "Informações do cliente e seus veículos.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "document": { "type": "string", "description": "CPF ou CNPJ" },
+        "since": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["Ativo", "VIP", "Inativo"] },
+        "vehicles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "model": { "type": "string" },
+              "plate": { "type": "string" },
+              "color": { "type": "string" },
+              "year": { "type": "number" }
+            }
+          }
+        }
+      },
+      "required": ["name", "phone"]
+    },
+    "product": {
+      "title": "Produto",
+      "description": "Item do estoque de autopeças.",
+      "type": "object",
+      "properties": {
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "category": { "type": "string" },
+        "size": { "type": "string" },
+        "price": { "type": "number" },
+        "stock": { "type": "number" },
+        "minStock": { "type": "number" },
+        "location": { "type": "string" },
+        "sku": { "type": "string" },
+        "image": { "type": "string", "format": "uri" }
+      },
+      "required": ["brand", "model", "price", "stock", "sku"]
+    },
+    "orders": {
+      "title": "Ordem de Serviço",
+      "description": "Registro de atendimento e venda.",
+      "type": "object",
+      "properties": {
+        "clientId": { "type": "string" },
+        "clientName": { "type": "string" },
+        "vehiclePlate": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pendente", "Em Andamento", "Concluído", "Urgente"] },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "price": { "type": "number" }
+            }
+          }
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "name": { "type": "string" },
+              "quantity": { "type": "number" },
+              "unitPrice": { "type": "number" }
+            }
+          }
+        },
+        "total": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["PIX", "Cartão", "Dinheiro", "Fiado"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "technicianId": { "type": "string" }
+      },
+      "required": ["clientId", "status", "total", "createdAt"]
+    },
+    "workshopSettings": {
+      "title": "Configurações da Oficina",
+      "description": "Configurações globais da oficina como nome e logo.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "phone": { "type": "string" },
+        "address": { "type": "string" }
+      },
+      "required": ["name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": { "schema": "user", "description": "Perfis de usuários do sistema" },
+    "/clients/{clientId}": { "schema": "client", "description": "Base de clientes" },
+    "/products/{productId}": { "schema": "product", "description": "Catálogo de peças e estoque" },
+    "/orders/{orderId}": { "schema": "orders", "description": "Histórico de ordens de serviço" },
+    "/settings/workshop": { "schema": "workshopSettings", "description": "Configurações globais da oficina" }
+  }
+}

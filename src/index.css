@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Manrope", sans-serif;
+
+  --color-primary: #003178;
+  --color-primary-container: #0d47a1;
+  --color-secondary: #9f4200;
+  --color-secondary-container: #fd6c00;
+  
+  --color-surface: #f9f9f9;
+  --color-surface-low: #f3f3f3;
+  --color-surface-lowest: #ffffff;
+  --color-surface-high: #e8e8e8;
+  
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #434652;
+  
+  --radius-xl: 1.5rem;
+  --radius-lg: 1rem;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline font-extrabold tracking-tight;
+  }
+}
+
+/* Custom Utilities */
+.glass-header {
+  @apply bg-surface-lowest/80 backdrop-blur-xl border-b border-surface-high/50;
+}
+
+.tonal-card {
+  @apply bg-surface-lowest shadow-sm border border-surface-high/20;
+}
+
+.mesh-gradient {
+  background: radial-gradient(at 0% 0%, var(--color-primary) 0%, transparent 50%),
+              radial-gradient(at 100% 100%, var(--color-primary-container) 0%, transparent 50%);
+  opacity: 0.05;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
