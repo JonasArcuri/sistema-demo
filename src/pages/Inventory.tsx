@@ -310,7 +310,7 @@ export default function Inventory() {
                       </div>
                     </td>
                     <td className="py-5 px-6 text-right">
-                      <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="flex justify-end gap-2">
                         <button 
                           onClick={() => handleOpenModal(item)}
                           className="p-2 hover:bg-white rounded-lg shadow-sm border border-surface-high text-on-surface-variant transition-all"
